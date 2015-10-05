@@ -33,16 +33,23 @@ class Arr
      * @param  string $order  Order type DESC or ASC
      * @return array
      */
-    public static function subvalSort($a, $subkey, $order = null)
-    {
-        if (count($a) != 0 || (!empty($a))) {
-            foreach ($a as $k => $v) $b[$k] = function_exists('mb_strtolower') ? mb_strtolower($v[$subkey]) : strtolower($v[$subkey]);
-            if ($order == null || $order == 'ASC') asort($b); else if ($order == 'DESC') arsort($b);
-            foreach ($b as $key => $val) $c[] = $a[$key];
-
-            return $c;
-        }
-    }
+     public function subvalSort($a, $subkey, $order = null)
+     {
+         if (count($a) != 0 || (!empty($a))) {
+             foreach ($a as $k => $v) {
+                 $b[$k] = function_exists('mb_strtolower') ? mb_strtolower($v[$subkey]) : strtolower($v[$subkey]);
+             }
+             if ($order == null || $order == 'ASC') {
+                 asort($b);
+             } else if ($order == 'DESC') {
+                 arsort($b);
+             }
+             foreach ($b as $key => $val) {
+                 $c[] = $a[$key];
+             }
+             return $c;
+         }
+     }
 
     /**
      * Returns value from array using "dot notation".
