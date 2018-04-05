@@ -1,5 +1,20 @@
-# Arr
-The array class contains methods that can be useful when working with arrays.
+# Arr Component
+![version](https://img.shields.io/badge/version-1.1.0-brightgreen.svg?style=flat-square "Version")
+[![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/flextype-components/arr/blob/master/LICENSE)
+
+The Array Component contains methods that can be useful when working with arrays.
+
+### Installation
+
+```
+composer require flextype-components/arr
+```
+
+### Usage
+
+```php
+use Flextype\Component\Arr\Arr;
+```
 
 Subval sort
 ```php
@@ -47,6 +62,17 @@ if (Arr::isAssoc($array)) {
 }
 ```
 
+Returns TRUE if the array is associative and FALSE if not.
+```php
+$array1 = array('name' => 'john', 'mood' => 'happy', 'food' => 'bacon');
+$array2 = array('name' => 'jack', 'food' => 'tacos', 'drink' => 'beer');
+
+// Overwrite the values of $array1 with $array2
+$array = Arr::overwrite($array1, $array2);
+
+// The output of $array will now be:
+array('name' => 'jack', 'mood' => 'happy', 'food' => 'tacos')
+```
 
 ## License
-See [LICENSE](https://github.com/force-components/Arr/blob/master/LICENSE)
+See [LICENSE](https://github.com/flextype-components/arr/blob/master/LICENSE)
