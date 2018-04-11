@@ -36,7 +36,7 @@ class Arr
                  arsort($b);
              }
              foreach ($b as $key => $val) {
-                 $c[] = $a[$key];
+                 $c[] = $array[$key];
              }
              return $c;
          }

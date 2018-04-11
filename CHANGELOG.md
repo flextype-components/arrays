@@ -1,3 +1,6 @@
+# v1.1.1, 2018-04-11
+* subvalSort() fixes
+
 # v1.1.0, 2018-04-05
 * PHP7 Support added
 * New method to overwrites an array with values from input arrays is added.
