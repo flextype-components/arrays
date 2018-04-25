@@ -1,5 +1,5 @@
 # Arr Component
-![version](https://img.shields.io/badge/version-1.1.1-brightgreen.svg?style=flat-square "Version")
+![version](https://img.shields.io/badge/version-1.2.0-brightgreen.svg?style=flat-square "Version")
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/flextype-components/arr/blob/master/LICENSE)
 
 The Array Component contains methods that can be useful when working with arrays.
@@ -72,6 +72,42 @@ $array = Arr::overwrite($array1, $array2);
 
 // The output of $array will now be:
 array('name' => 'jack', 'mood' => 'happy', 'food' => 'tacos')
+```
+
+Converts an array to a JSON string
+```php
+$array = [
+  'cat'  => 'miao',
+  'dog'  => 'wuff',
+  'bird' => 'tweet'
+];
+
+echo a::json($array);
+// output: {"cat":"miao","dog":"wuff","bird":"tweet"}
+```
+
+Returns the first element of an array
+```php
+$array = [
+  'cat',
+  'dog',
+  'bird',
+];
+
+$first = a::first($array);
+// first: 'cat'
+```
+
+Returns the last element of an array
+```php
+$array = [
+  'cat',
+  'dog',
+  'bird',
+];
+
+$last = a::last($array);
+// first: 'bird'
 ```
 
 ## License

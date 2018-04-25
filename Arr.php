@@ -114,7 +114,7 @@ class Arr
      * @access  public
      * @param  array   $array Array you want to modify
      * @param  string  $path  Array path
-     * @return boolean
+     * @return bool
      */
     public static function delete(array &$array, string $path) : bool
     {
@@ -146,7 +146,7 @@ class Arr
      *
      * @param  array   $array The search array
      * @param  mixed   $path  Array path
-     * @return boolean
+     * @return bool
      */
     public static function keyExists(array $array, $path) : bool
     {
@@ -183,13 +183,73 @@ class Arr
      * }
      *
      * @param  array   $array Array to check
-     * @return boolean
+     * @return bool
      */
     public static function isAssoc(array $array) : bool
     {
         return (bool) count(array_filter(array_keys($array), 'is_string'));
     }
 
+
+    /**
+     * Converts an array to a JSON string
+     *
+     * $array = [
+     *   'cat'  => 'miao',
+     *   'dog'  => 'wuff',
+     *   'bird' => 'tweet'
+     * ];
+     *
+     * echo a::json($array);
+     * // output: {"cat":"miao","dog":"wuff","bird":"tweet"}
+     *
+     * @param   array   $array The source array
+     * @return  string  The JSON string
+     */
+    public static function json(array $array) : string
+    {
+        return json_encode($array);
+    }
+
+    /**
+     * Returns the first element of an array
+     *
+     * $array = [
+     *   'cat',
+     *   'dog',
+     *   'bird',
+     * ];
+     *
+     * $first = a::first($array);
+     * // first: 'cat'
+     *
+     * @param   array  $array The source array
+     * @return  mixed  The first element
+     */
+    public static function first(array $array)
+    {
+        return array_shift($array);
+    }
+
+    /**
+     * Returns the last element of an array
+     *
+     * $array = [
+     *   'cat',
+     *   'dog',
+     *   'bird',
+     * ];
+     *
+     * $last = a::last($array);
+     * // first: 'bird'
+     *
+     * @param   array  $array The source array
+     * @return  mixed  The last element
+     */
+    public static function last(array $array)
+    {
+        return array_pop($array);
+    }
 
     /**
     * Overwrites an array with values from input arrays.

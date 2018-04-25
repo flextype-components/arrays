@@ -3,7 +3,7 @@
   "keywords": ["array"],
   "type": "library",
   "license": "MIT",
-  "homepage": "https://github.com/flextype-components/array",
+  "homepage": "https://github.com/flextype-components/arr",
   "description": "The Array Component contains methods that can be useful when working with arrays.",
   "authors": [
     {
@@ -12,7 +12,7 @@
     }
   ],
   "support": {
-    "issues": "https://github.com/flextype-components/array/issues"
+    "issues": "https://github.com/flextype-components/arr/issues"
   },
   "require": {
       "php": "^7.1.3"

@@ -1,3 +1,8 @@
+# v1.2.0, 2018-04-26
+* New method json() for converting an array to a JSON string
+* New method first() to return the first element of an array
+* New method last() to return the last element of an array
+
 # v1.1.1, 2018-04-11
 * subvalSort() fixes
 
