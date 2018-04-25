@@ -190,7 +190,6 @@ class Arr
         return (bool) count(array_filter(array_keys($array), 'is_string'));
     }
 
-
     /**
      * Converts an array to a JSON string
      *
@@ -200,7 +199,7 @@ class Arr
      *   'bird' => 'tweet'
      * ];
      *
-     * echo a::json($array);
+     * echo Arr::json($array);
      * // output: {"cat":"miao","dog":"wuff","bird":"tweet"}
      *
      * @param   array   $array The source array
@@ -220,7 +219,7 @@ class Arr
      *   'bird',
      * ];
      *
-     * $first = a::first($array);
+     * $first = Arr::first($array);
      * // first: 'cat'
      *
      * @param   array  $array The source array
@@ -240,7 +239,7 @@ class Arr
      *   'bird',
      * ];
      *
-     * $last = a::last($array);
+     * $last = Arr::last($array);
      * // first: 'bird'
      *
      * @param   array  $array The source array

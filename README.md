@@ -82,7 +82,7 @@ $array = [
   'bird' => 'tweet'
 ];
 
-echo a::json($array);
+echo Arr::json($array);
 // output: {"cat":"miao","dog":"wuff","bird":"tweet"}
 ```
 
@@ -94,7 +94,7 @@ $array = [
   'bird',
 ];
 
-$first = a::first($array);
+$first = Arr::first($array);
 // first: 'cat'
 ```
 
@@ -106,7 +106,7 @@ $array = [
   'bird',
 ];
 
-$last = a::last($array);
+$last = Arr::last($array);
 // first: 'bird'
 ```
 
