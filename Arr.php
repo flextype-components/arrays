@@ -15,30 +15,42 @@ namespace Flextype\Component\Arr;
 class Arr
 {
     /**
-     * Subval sort
+     * Sorts a multi-dimensional array by a certain column
      *
-     * $new_array = Arr::subvalSort($old_array, 'sort');
+     * $new_array = Arr::sort($old_array, 'title');
      *
-     * @param  array  $array  Array
-     * @param  string $subkey Key
-     * @param  string $order  Order type DESC or ASC
+     * @param  array  $array     The source array
+     * @param  string $field     The name of the column
+     * @param  string $direction Order type DESC (descending) or ASC (ascending)
+     * @param  const  $method    A PHP sort method flag or 'natural' for natural sorting, which is not supported in PHP by sort flags
      * @return array
      */
-     public static function subvalSort(array $array, string $subkey, string $order = 'ASC') : array
+     public static function sort(array $array, string $field, string $direction = 'ASC', $method = SORT_REGULAR) : array
      {
-         if (count($array) != 0 || (!empty($array))) {
-             foreach ($array as $k => $v) {
-                 $b[$k] = function_exists('mb_strtolower') ? mb_strtolower($v[$subkey]) : strtolower($v[$subkey]);
+         if (count($array) > 0) {
+
+             // Create the helper array
+             foreach ($array as $key => $row) {
+                 $helper[$key] = function_exists('mb_strtolower') ? mb_strtolower($row[$field]) : strtolower($row[$field]);
              }
-             if ($order == null || $order == 'ASC') {
-                 asort($b);
-             } elseif ($order == 'DESC') {
-                 arsort($b);
+
+             // Sort
+             if($method === SORT_NATURAL) {
+                 natsort($helper);
+                 ($direction === 'DESC') and $helper = array_reverse($helper);
+             } elseif ($direction == 'DESC') {
+                 arsort($helper, $method);
+             } else {
+                 asort($helper, $method);
              }
-             foreach ($b as $key => $val) {
-                 $c[] = $array[$key];
+
+             // Rebuild the original array
+             foreach ($helper as $key => $val) {
+                 $result[$key] = $array[$key];
              }
-             return $c;
+
+             // Return result array
+             return $result;
          }
      }
 

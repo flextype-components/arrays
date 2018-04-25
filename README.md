@@ -16,9 +16,9 @@ composer require flextype-components/arr
 use Flextype\Component\Arr\Arr;
 ```
 
-Subval sort
+Sorts a multi-dimensional array by a certain column
 ```php
-$new_array = Arr::subvalSort($old_array, 'sort');
+$new_array = Arr::sort($old_array, 'title');
 ```
 
 Sets an array value using "dot notation".
