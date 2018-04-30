@@ -211,15 +211,66 @@ class Arr
      *   'bird' => 'tweet'
      * ];
      *
-     * echo Arr::json($array);
      * // output: {"cat":"miao","dog":"wuff","bird":"tweet"}
+     * echo Arr::toJson($array);
      *
      * @param   array   $array The source array
      * @return  string  The JSON string
      */
-    public static function json(array $array) : string
+    public static function toJson(array $array) : string
     {
         return json_encode($array);
+    }
+
+    /**
+     * Create an new Array from JSON string.
+     *
+     * $str = '{"firstName":"John", "lastName":"Doe"}';
+     *
+     * // Array['firstName' => 'John', 'lastName' => 'Doe']
+     * $array = Arr::createFromJson($str);
+     *
+     * @param string $json The JSON string
+     * @return array
+     */
+    public static function createFromJson(string $json) : array
+    {
+        return json_decode($json, true);
+    }
+
+    /**
+     * Create an new Array object via string.
+     *
+     * $array = Arr::createFromString('cat, dog, bird', ',');
+     *
+     * @param string      $str       The input string.
+     * @param string|null $delimiter The boundary string.
+     * @param string|null $regEx     Use the $delimiter or the $regEx, so if $pattern is null, $delimiter will be used.
+     *
+     * @return array
+     */
+    public static function createFromString(string $str, string $delimiter = null, string $regEx = null) : string
+    {
+        if ($regEx) {
+            preg_match_all($regEx, $str, $array);
+
+            if ( ! empty($array)) {
+                $array = $array[0];
+            }
+        } else {
+            $array = explode($delimiter, $str);
+        }
+
+        array_walk(
+            $array,
+            function (&$val) {
+                if (is_string($val)) {
+                    $val = trim($val);
+                }
+            }
+        );
+
+        return $array;
     }
 
     /**
@@ -294,5 +345,62 @@ class Arr
         }
 
         return $array1;
+    }
+
+    /**
+     * Returns the average value of the current array.
+     *
+     * echo Arr::average([2, 5, 1, 9], 2);
+     *
+     * @param  array $array Array
+     * @param  int   $decimals The number of decimal-numbers to return.
+     * @return int|double
+     */
+    public static function average(array $array, int $decimals = 0)
+    {
+        $count = Arr::size($array);
+
+        if ( ! $count) {
+            return 0;
+        }
+
+        if ( ! is_int($decimals)) {
+            $decimals = 0;
+        }
+
+        return round(array_sum($array) / $count, $decimals);
+    }
+
+    /**
+     * Counts all elements in an array.
+     *
+     * $size = Arr::size($array);
+     *
+     * @param array $array Array
+     * @param int $mode [optional] If the optional mode parameter is set to
+     *                  COUNT_RECURSIVE (or 1), count
+     *                  will recursively count the array. This is particularly useful for
+     *                  counting all the elements of a multidimensional array. count does not detect infinite recursion.
+     *
+     * @return int
+     */
+    public static function size(array $array, int $mode = COUNT_NORMAL) : int
+    {
+        return count($array, $mode);
+    }
+
+    /**
+     * Return an array with elements in reverse order.
+     *
+     * $array = Arr::reverse($array);
+     *
+     * @param array $array Array
+     * @param bool  $preserve_keys Default is false FALSE - numeric keys are preserved.
+     *                             Non-numeric keys are not affected by this setting and will always be preserved.
+     * @return array
+     */
+    public function reverse(array $array, bool $preserve_keys = false) : array
+    {
+        return array_reverse($array, $preserve_keys);
     }
 }

@@ -1,3 +1,11 @@
+# v1.2.2, 2018-04-30
+* New method reverse()
+* New method size()
+* New method average()
+* New method createFromString()
+* New method createFromJson
+* New method toJson() instead of json()
+
 # v1.2.1, 2018-04-26
 * New method sort() instead of subvalSort()
 

@@ -1,5 +1,5 @@
 # Arr Component
-![version](https://img.shields.io/badge/version-1.2.1-brightgreen.svg?style=flat-square "Version")
+![version](https://img.shields.io/badge/version-1.2.2-brightgreen.svg?style=flat-square "Version")
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](https://github.com/flextype-components/arr/blob/master/LICENSE)
 
 The Array Component contains methods that can be useful when working with arrays.
@@ -108,6 +108,41 @@ $array = [
 
 $last = Arr::last($array);
 // first: 'bird'
+```
+
+Converts an array to a JSON string
+```php
+$array = [
+   'cat'  => 'miao',
+   'dog'  => 'wuff',
+   'bird' => 'tweet'
+];
+
+// output: {"cat":"miao","dog":"wuff","bird":"tweet"}
+echo Arr::toJson($array);
+```
+
+Create an new Array from JSON string.
+```php
+$str = '{"firstName":"John", "lastName":"Doe"}';
+
+// Array['firstName' => 'John', 'lastName' => 'Doe']
+$array = Arr::createFromJson($str);
+```
+
+Create an new Array object via string.
+```php
+$array = Arr::createFromString('cat, dog, bird', ',');
+```
+
+Counts all elements in an array.
+```php
+$size = Arr::size($array);
+```
+
+Return an array with elements in reverse order.
+```php
+$array = Arr::reverse($array);
 ```
 
 ## License
