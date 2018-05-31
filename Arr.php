@@ -217,9 +217,9 @@ class Arr
      * @param   array   $array The source array
      * @return  string  The JSON string
      */
-    public static function toJson(array $array) : string
+    public static function toJson(array $array, int $options = 0, int $depth = 512) : string
     {
-        return json_encode($array);
+        return json_encode($array, $options, $depth);
     }
 
     /**
@@ -233,9 +233,9 @@ class Arr
      * @param string $json The JSON string
      * @return array
      */
-    public static function createFromJson(string $json) : array
+    public static function createFromJson(string $json, bool $assoc = true, int $depth = 512 , int $options = 0) : array
     {
-        return json_decode($json, true);
+        return json_decode($json, $assoc, $depth, $options);
     }
 
     /**

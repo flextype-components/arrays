@@ -1,3 +1,7 @@
+# v1.2.3, 2018-05-31
+* method toJson() can take new parameters with predefined variables: int $options = 0, int $depth = 512
+* method createFromJson() can take new parameters with predefined variables: bool $assoc = true, int $depth = 512 , int $options = 0
+
 # v1.2.2, 2018-04-30
 * New method reverse()
 * New method size()
