@@ -1,9 +1,8 @@
 <?php
 
+declare(strict_types=1);
+
 /**
- * @package Flextype Components
- *
- * @author Sergey Romanenko <awilum@yandex.ru>
  * @link http://components.flextype.org
  *
  * For the full copyright and license information, please view the LICENSE
@@ -11,6 +10,20 @@
  */
 
 namespace Flextype\Component\Arr;
+
+use const SORT_NATURAL;
+use const SORT_REGULAR;
+use function array_reverse;
+use function array_shift;
+use function arsort;
+use function asort;
+use function count;
+use function explode;
+use function function_exists;
+use function mb_strtolower;
+use function natsort;
+use function strtolower;
+use function is_array;
 
 class Arr
 {
@@ -23,48 +36,49 @@ class Arr
      * @param  string $field     The name of the column
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  const  $method    A PHP sort method flag or 'natural' for natural sorting, which is not supported in PHP by sort flags
+     *
      * @return array
      */
-     public static function sort(array $array, string $field, string $direction = 'ASC', $method = SORT_REGULAR) : array
-     {
-         if (count($array) > 0) {
+    public static function sort(array $array, string $field, string $direction = 'ASC', public const $method = SORT_REGULAR) : array
+    {
+        if (count($array) > 0) {
+            // Create the helper array
+            foreach ($array as $key => $row) {
+                $helper[$key] = function_exists('mb_strtolower') ? mb_strtolower(self::get($row, $field)) : strtolower(self::get($row, $field));
+            }
 
-             // Create the helper array
-             foreach ($array as $key => $row) {
-                 $helper[$key] = function_exists('mb_strtolower') ? mb_strtolower(Arr::get($row, $field)) : strtolower(Arr::get($row, $field));
-             }
+            // Sort
+            if ($method === SORT_NATURAL) {
+                natsort($helper);
+                ($direction === 'DESC') and $helper = array_reverse($helper);
+            } elseif ($direction === 'DESC') {
+                arsort($helper, $method);
+            } else {
+                asort($helper, $method);
+            }
 
-             // Sort
-             if($method === SORT_NATURAL) {
-                 natsort($helper);
-                 ($direction === 'DESC') and $helper = array_reverse($helper);
-             } elseif ($direction == 'DESC') {
-                 arsort($helper, $method);
-             } else {
-                 asort($helper, $method);
-             }
+            // Rebuild the original array
+            foreach ($helper as $key => $val) {
+                $result[$key] = $array[$key];
+            }
 
-             // Rebuild the original array
-             foreach ($helper as $key => $val) {
-                 $result[$key] = $array[$key];
-             }
-
-             // Return result array
-             return $result;
-         }
-     }
+            // Return result array
+            return $result;
+        }
+    }
 
     /**
      * Sets an array value using "dot notation".
      *
      * Arr::set($array, 'foo.bar', 'value');
      *
+     * @param   array  $array Array you want to modify
+     * @param   string $path  Array path
+     * @param   mixed  $value Value to set
+     *
      * @access  public
-     * @param   array    $array  Array you want to modify
-     * @param   string   $path   Array path
-     * @param   mixed    $value  Value to set
      */
-    public static function set(array &$array, string $path, $value)
+    public static function set(array &$array, string $path, $value) : void
     {
         // Get segments from path
         $segments = explode('.', $path);
@@ -72,7 +86,7 @@ class Arr
         // Loop through segments
         while (count($segments) > 1) {
             $segment = array_shift($segments);
-            if (!isset($array[$segment]) || !is_array($array[$segment])) {
+            if (! isset($array[$segment]) || ! is_array($array[$segment])) {
                 $array[$segment] = [];
             }
             $array =& $array[$segment];
@@ -95,6 +109,7 @@ class Arr
      * @param  array  $array   Array to extract from
      * @param  string $path    Array path
      * @param  mixed  $default Default value
+     *
      * @return mixed
      */
     public static function get(array $array, string $path, $default = null)
@@ -104,9 +119,8 @@ class Arr
 
         // Loop through segments
         foreach ($segments as $segment) {
-
             // Check
-            if (! is_array($array) || !isset($array[$segment])) {
+            if (! is_array($array) || ! isset($array[$segment])) {
                 return $default;
             }
 
@@ -123,10 +137,10 @@ class Arr
      *
      * Arr::delete($array, 'foo.bar');
      *
+     * @param  array  $array Array you want to modify
+     * @param  string $path  Array path
+     *
      * @access  public
-     * @param  array   $array Array you want to modify
-     * @param  string  $path  Array path
-     * @return bool
      */
     public static function delete(array &$array, string $path) : bool
     {
@@ -137,7 +151,7 @@ class Arr
         while (count($segments) > 1) {
             $segment = array_shift($segments);
 
-            if (! isset($array[$segment]) || !is_array($array[$segment])) {
+            if (! isset($array[$segment]) || ! is_array($array[$segment])) {
                 return false;
             }
 
@@ -156,9 +170,8 @@ class Arr
      *     // Do something...
      * }
      *
-     * @param  array   $array The search array
-     * @param  mixed   $path  Array path
-     * @return bool
+     * @param  array $array The search array
+     * @param  mixed $path  Array path
      */
     public static function keyExists(array $array, $path) : bool
     {
@@ -178,9 +191,11 @@ class Arr
      *
      * Arr::random(array('php', 'js', 'css', 'html'));
      *
-     * @access  public
      * @param  array $array Array path
+     *
      * @return mixed
+     *
+     * @access  public
      */
     public static function random(array $array)
     {
@@ -194,8 +209,7 @@ class Arr
      *     // Do something...
      * }
      *
-     * @param  array   $array Array to check
-     * @return bool
+     * @param  array $array Array to check
      */
     public static function isAssoc(array $array) : bool
     {
@@ -214,7 +228,8 @@ class Arr
      * // output: {"cat":"miao","dog":"wuff","bird":"tweet"}
      * echo Arr::toJson($array);
      *
-     * @param   array   $array The source array
+     * @param   array $array The source array
+     *
      * @return  string  The JSON string
      */
     public static function toJson(array $array, int $options = 0, int $depth = 512) : string
@@ -231,9 +246,10 @@ class Arr
      * $array = Arr::createFromJson($str);
      *
      * @param string $json The JSON string
+     *
      * @return array
      */
-    public static function createFromJson(string $json, bool $assoc = true, int $depth = 512 , int $options = 0) : array
+    public static function createFromJson(string $json, bool $assoc = true, int $depth = 512, int $options = 0) : array
     {
         return json_decode($json, $assoc, $depth, $options);
     }
@@ -249,12 +265,12 @@ class Arr
      *
      * @return array
      */
-    public static function createFromString(string $str, string $delimiter = null, string $regEx = null) : array
+    public static function createFromString(string $str, ?string $delimiter = null, ?string $regEx = null) : array
     {
         if ($regEx) {
             preg_match_all($regEx, $str, $array);
 
-            if ( ! empty($array)) {
+            if (! empty($array)) {
                 $array = $array[0];
             }
         } else {
@@ -263,10 +279,12 @@ class Arr
 
         array_walk(
             $array,
-            function (&$val) {
-                if (is_string($val)) {
-                    $val = trim($val);
+            static function (&$val) : void {
+                if (! is_string($val)) {
+                    return;
                 }
+
+                $val = trim($val);
             }
         );
 
@@ -285,7 +303,8 @@ class Arr
      * $first = Arr::first($array);
      * // first: 'cat'
      *
-     * @param   array  $array The source array
+     * @param   array $array The source array
+     *
      * @return  mixed  The first element
      */
     public static function first(array $array)
@@ -305,7 +324,8 @@ class Arr
      * $last = Arr::last($array);
      * // first: 'bird'
      *
-     * @param   array  $array The source array
+     * @param   array $array The source array
+     *
      * @return  mixed  The last element
      */
     public static function last(array $array)
@@ -314,22 +334,23 @@ class Arr
     }
 
     /**
-    * Overwrites an array with values from input arrays.
-    * Keys that do not exist in the first array will not be added!
-    *
-    * $array1 = array('name' => 'john', 'mood' => 'happy', 'food' => 'bacon');
-    * $array2 = array('name' => 'jack', 'food' => 'tacos', 'drink' => 'beer');
-    *
-    * // Overwrite the values of $array1 with $array2
-    * $array = Arr::overwrite($array1, $array2);
-    *
-    * // The output of $array will now be:
-    * array('name' => 'jack', 'mood' => 'happy', 'food' => 'tacos')
-    *
-    * @param   array   $array1 master array
-    * @param   array   $array2 input arrays that will overwrite existing values
-    * @return  array
-    */
+     * Overwrites an array with values from input arrays.
+     * Keys that do not exist in the first array will not be added!
+     *
+     * $array1 = array('name' => 'john', 'mood' => 'happy', 'food' => 'bacon');
+     * $array2 = array('name' => 'jack', 'food' => 'tacos', 'drink' => 'beer');
+     *
+     * // Overwrite the values of $array1 with $array2
+     * $array = Arr::overwrite($array1, $array2);
+     *
+     * // The output of $array will now be:
+     * array('name' => 'jack', 'mood' => 'happy', 'food' => 'tacos')
+     *
+     * @param   array $array1 master array
+     * @param   array $array2 input arrays that will overwrite existing values
+     *
+     * @return  array
+     */
     public static function overwrite(array $array1, array $array2) : array
     {
         foreach (array_intersect_key($array2, $array1) as $key => $value) {
@@ -352,19 +373,20 @@ class Arr
      *
      * echo Arr::average([2, 5, 1, 9], 2);
      *
-     * @param  array $array Array
+     * @param  array $array    Array
      * @param  int   $decimals The number of decimal-numbers to return.
+     *
      * @return int|double
      */
     public static function average(array $array, int $decimals = 0)
     {
-        $count = Arr::size($array);
+        $count = self::size($array);
 
-        if ( ! $count) {
+        if (! $count) {
             return 0;
         }
 
-        if ( ! is_int($decimals)) {
+        if (! is_int($decimals)) {
             $decimals = 0;
         }
 
@@ -377,12 +399,10 @@ class Arr
      * $size = Arr::size($array);
      *
      * @param array $array Array
-     * @param int $mode [optional] If the optional mode parameter is set to
-     *                  COUNT_RECURSIVE (or 1), count
-     *                  will recursively count the array. This is particularly useful for
-     *                  counting all the elements of a multidimensional array. count does not detect infinite recursion.
-     *
-     * @return int
+     * @param int   $mode  [optional] If the optional mode parameter is set to
+     *                     COUNT_RECURSIVE (or 1), count
+     *                     will recursively count the array. This is particularly useful for
+     *                     counting all the elements of a multidimensional array. count does not detect infinite recursion.
      */
     public static function size(array $array, int $mode = COUNT_NORMAL) : int
     {
@@ -394,9 +414,10 @@ class Arr
      *
      * $array = Arr::reverse($array);
      *
-     * @param array $array Array
+     * @param array $array         Array
      * @param bool  $preserve_keys Default is false FALSE - numeric keys are preserved.
      *                             Non-numeric keys are not affected by this setting and will always be preserved.
+     *
      * @return array
      */
     public function reverse(array $array, bool $preserve_keys = false) : array

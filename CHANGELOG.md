@@ -1,3 +1,6 @@
+# v1.2.6, 2019-08-11
+* Doctrine Coding Standard fixes
+
 # v1.2.5, 2019-01-20
 * method sort() improved
 
