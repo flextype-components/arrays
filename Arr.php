@@ -3,10 +3,8 @@
 declare(strict_types=1);
 
 /**
- * @link http://components.flextype.org
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+ * Arr Component
+ * Founded by Sergey Romanenko and maintained by Community.
  */
 
 namespace Flextype\Component\Arr;
