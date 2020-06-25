@@ -45,7 +45,7 @@ class Arr
         if (count($array) > 0) {
             // Create the helper array
             foreach ($array as $key => $row) {
-                $helper[$key] = function_exists('mb_strtolower') ? mb_strtolower(self::get($row, $field)) : strtolower(self::get($row, $field));
+                $helper[$key] = function_exists('mb_strtolower') ? mb_strtolower(strval(static::get($row, $field))) : strtolower(strval(static::get($row, $field)));
             }
 
             // Sort
