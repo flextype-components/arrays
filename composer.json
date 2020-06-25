@@ -1,6 +1,6 @@
 {
   "name": "flextype-components/arr",
-  "keywords": ["array"],
+  "keywords": ["array", "helpers"],
   "type": "library",
   "license": "MIT",
   "homepage": "https://github.com/flextype-components/arr",
