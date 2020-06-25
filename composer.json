@@ -1,6 +1,6 @@
 {
   "name": "flextype-components/arr",
-  "keywords": ["array"],
+  "keywords": ["array", "helpers", "utility"],
   "type": "library",
   "license": "MIT",
   "homepage": "https://github.com/flextype-components/arr",
@@ -19,8 +19,5 @@
   },
   "autoload": {
       "psr-4": { "Flextype\\Component\\Arr\\": "" }
-  },
-  "require-dev": {
-      "doctrine/coding-standard": "^6.0"
   }
 }
