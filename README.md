@@ -1,6 +1,8 @@
-# Arr Component
-![version](https://img.shields.io/badge/version-1.2.6-brightgreen.svg?style=flat-square)
-![MIT License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)
+<h1 align="center">Arr Component</h1>
+
+<p align="center">
+<a href="https://github.com/flextype-components/arr/releases"><img alt="Version" src="https://img.shields.io/github/release/flextype-components/arr.svg?label=version&color=black"></a> <a href="https://github.com/flextype/flextype"><img src="https://img.shields.io/badge/license-MIT-blue.svg?color=black" alt="License"></a> <a href="https://github.com/flextype-components/arr"><img src="https://img.shields.io/github/downloads/flextype-components/arr/total.svg?color=black" alt="Total downloads"></a> <a href="https://scrutinizer-ci.com/g/flextype-components/arr?branch=master"><img src="https://img.shields.io/scrutinizer/g/flextype-components/arr.svg?branch=master&color=black" alt="Quality Score"></a> <a href="https://flextype.org/en/discord"><img src="https://img.shields.io/discord/423097982498635778.svg?logo=discord&color=black&label=Discord%20Chat" alt="Discord"></a>
+</p>
 
 The Array Component contains methods that can be useful when working with arrays.
 
