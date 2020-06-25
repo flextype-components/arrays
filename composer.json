@@ -1,6 +1,6 @@
 {
   "name": "flextype-components/arr",
-  "keywords": ["array", "helpers"],
+  "keywords": ["array", "helpers", "utility"],
   "type": "library",
   "license": "MIT",
   "homepage": "https://github.com/flextype-components/arr",
@@ -21,6 +21,7 @@
       "psr-4": { "Flextype\\Component\\Arr\\": "" }
   },
   "require-dev": {
-      "doctrine/coding-standard": "^6.0"
+      "doctrine/coding-standard": "7.0.2",
+      "victorjonsson/markdowndocs": "^1.3"
   }
 }
