@@ -1,4 +1,7 @@
-# v1.2.6, 2020-06-25
+# v1.2.8, 2020-06-25
+* Fix method sort()
+
+# v1.2.7, 2020-06-25
 * New method dot()
 * New method undot()
 
