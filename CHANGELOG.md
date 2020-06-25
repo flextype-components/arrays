@@ -1,3 +1,7 @@
+# v1.2.6, 2020-06-25
+* New method dot()
+* New method undot()
+
 # v1.2.6, 2019-08-11
 * Doctrine Coding Standard fixes
 

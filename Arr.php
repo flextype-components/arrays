@@ -3,8 +3,10 @@
 declare(strict_types=1);
 
 /**
- * Arr Component
- * Founded by Sergey Romanenko and maintained by Community.
+ * @link http://tools.flextype.org
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Flextype\Component\Arr;
@@ -18,26 +20,27 @@ use function asort;
 use function count;
 use function explode;
 use function function_exists;
+use function is_array;
 use function mb_strtolower;
 use function natsort;
 use function strtolower;
-use function is_array;
+use function array_merge;
 
 class Arr
 {
     /**
-     * Sorts a multi-dimensional array by a certain column
-     *
-     * $new_array = Arr::sort($old_array, 'title');
+     * Sorts a multi-dimensional array by a certain field path
      *
      * @param  array  $array     The source array
-     * @param  string $field     The name of the column
+     * @param  string $field     The name of the field path
      * @param  string $direction Order type DESC (descending) or ASC (ascending)
      * @param  const  $method    A PHP sort method flag or 'natural' for natural sorting, which is not supported in PHP by sort flags
      *
      * @return array
+     *
+     * @access  public
      */
-    public static function sort(array $array, string $field, string $direction = 'ASC', public const $method = SORT_REGULAR) : array
+    public static function sort(array $array, string $field, string $direction = 'ASC', $method = SORT_REGULAR) : array
     {
         if (count($array) > 0) {
             // Create the helper array
@@ -68,8 +71,6 @@ class Arr
     /**
      * Sets an array value using "dot notation".
      *
-     * Arr::set($array, 'foo.bar', 'value');
-     *
      * @param   array  $array Array you want to modify
      * @param   string $path  Array path
      * @param   mixed  $value Value to set
@@ -96,19 +97,13 @@ class Arr
      * Returns value from array using "dot notation".
      * If the key does not exist in the array, the default value will be returned instead.
      *
-     * $login = Arr::get($_POST, 'login');
-     *
-     * $array = array('foo' => 'bar');
-     * $foo = Arr::get($array, 'foo');
-     *
-     * $array = array('test' => array('foo' => 'bar'));
-     * $foo = Arr::get($array, 'test.foo');
-     *
      * @param  array  $array   Array to extract from
      * @param  string $path    Array path
      * @param  mixed  $default Default value
      *
      * @return mixed
+     *
+     * @access  public
      */
     public static function get(array $array, string $path, $default = null)
     {
@@ -133,10 +128,10 @@ class Arr
     /**
      * Deletes an array value using "dot notation".
      *
-     * Arr::delete($array, 'foo.bar');
-     *
      * @param  array  $array Array you want to modify
      * @param  string $path  Array path
+     *
+     * @return mixed
      *
      * @access  public
      */
@@ -162,14 +157,59 @@ class Arr
     }
 
     /**
-     * Checks if the given dot-notated key exists in the array.
+     * Flatten a multi-dimensional associative array with dots.
      *
-     * if (Arr::keyExists($array, 'foo.bar')) {
-     *     // Do something...
-     * }
+     * @param  array  $array Array
+     * @param  string $prepend Prepend string
+     *
+     * @return array
+     *
+     * @access  public
+     */
+    public static function dot(array $array, string $prepend = '') : array
+    {
+        $result = [];
+
+        foreach ($array as $key => $value) {
+            if (is_array($value) && ! empty($value)) {
+                $result = array_merge($result, static::dot($value, $prepend . $key . '.'));
+            } else {
+                $result[$prepend . $key] = $value;
+            }
+        }
+
+        return $result;
+    }
+
+     /**
+      * Expands a dot notation array into a full multi-dimensional array.
+      *
+      * @param  array $array
+      *
+      * @return array
+      *
+      * @access  public
+      */
+    public static function undot(array $array) : array
+    {
+        $result = [];
+
+        foreach ($array as $key => $value) {
+            static::set($result, $key, $value);
+        }
+
+        return $result;
+    }
+
+    /**
+     * Checks if the given dot-notated key exists in the array.
      *
      * @param  array $array The search array
      * @param  mixed $path  Array path
+     *
+     * @return bool
+     *
+     * @access  public
      */
     public static function keyExists(array $array, $path) : bool
     {
@@ -187,8 +227,6 @@ class Arr
     /**
      * Returns a random value from an array.
      *
-     * Arr::random(array('php', 'js', 'css', 'html'));
-     *
      * @param  array $array Array path
      *
      * @return mixed
@@ -203,11 +241,11 @@ class Arr
     /**
      * Returns TRUE if the array is associative and FALSE if not.
      *
-     * if (Arr::isAssoc($array)) {
-     *     // Do something...
-     * }
-     *
      * @param  array $array Array to check
+     *
+     * @return bool
+     *
+     * @access  public
      */
     public static function isAssoc(array $array) : bool
     {
@@ -217,18 +255,13 @@ class Arr
     /**
      * Converts an array to a JSON string
      *
-     * $array = [
-     *   'cat'  => 'miao',
-     *   'dog'  => 'wuff',
-     *   'bird' => 'tweet'
-     * ];
+     * @param array $array   The source array
+     * @param int   $options Options, default is 0
+     * @param int   $depth   Options, default is 512
      *
-     * // output: {"cat":"miao","dog":"wuff","bird":"tweet"}
-     * echo Arr::toJson($array);
+     * @return string  The JSON string
      *
-     * @param   array $array The source array
-     *
-     * @return  string  The JSON string
+     * @access  public
      */
     public static function toJson(array $array, int $options = 0, int $depth = 512) : string
     {
@@ -238,14 +271,14 @@ class Arr
     /**
      * Create an new Array from JSON string.
      *
-     * $str = '{"firstName":"John", "lastName":"Doe"}';
-     *
-     * // Array['firstName' => 'John', 'lastName' => 'Doe']
-     * $array = Arr::createFromJson($str);
-     *
-     * @param string $json The JSON string
+     * @param string $json     The JSON string
+     * @param bool   $assoc    Is assoc, default is true
+     * @param int    $depth    Depth, default is 512
+     * @param int    $options  Options, default is 0
      *
      * @return array
+     *
+     * @access  public
      */
     public static function createFromJson(string $json, bool $assoc = true, int $depth = 512, int $options = 0) : array
     {
@@ -255,15 +288,13 @@ class Arr
     /**
      * Create an new Array object via string.
      *
-     * $array = Arr::createFromString('cat, dog, bird', ',');
-     *
      * @param string      $str       The input string.
      * @param string|null $delimiter The boundary string.
      * @param string|null $regEx     Use the $delimiter or the $regEx, so if $pattern is null, $delimiter will be used.
      *
      * @return array
      */
-    public static function createFromString(string $str, ?string $delimiter = null, ?string $regEx = null) : array
+    public static function createFromString(string $str, string $delimiter = null, string $regEx = null) : array
     {
         if ($regEx) {
             preg_match_all($regEx, $str, $array);
@@ -292,15 +323,6 @@ class Arr
     /**
      * Returns the first element of an array
      *
-     * $array = [
-     *   'cat',
-     *   'dog',
-     *   'bird',
-     * ];
-     *
-     * $first = Arr::first($array);
-     * // first: 'cat'
-     *
      * @param   array $array The source array
      *
      * @return  mixed  The first element
@@ -312,15 +334,6 @@ class Arr
 
     /**
      * Returns the last element of an array
-     *
-     * $array = [
-     *   'cat',
-     *   'dog',
-     *   'bird',
-     * ];
-     *
-     * $last = Arr::last($array);
-     * // first: 'bird'
      *
      * @param   array $array The source array
      *
@@ -334,15 +347,6 @@ class Arr
     /**
      * Overwrites an array with values from input arrays.
      * Keys that do not exist in the first array will not be added!
-     *
-     * $array1 = array('name' => 'john', 'mood' => 'happy', 'food' => 'bacon');
-     * $array2 = array('name' => 'jack', 'food' => 'tacos', 'drink' => 'beer');
-     *
-     * // Overwrite the values of $array1 with $array2
-     * $array = Arr::overwrite($array1, $array2);
-     *
-     * // The output of $array will now be:
-     * array('name' => 'jack', 'mood' => 'happy', 'food' => 'tacos')
      *
      * @param   array $array1 master array
      * @param   array $array2 input arrays that will overwrite existing values
@@ -369,8 +373,6 @@ class Arr
     /**
      * Returns the average value of the current array.
      *
-     * echo Arr::average([2, 5, 1, 9], 2);
-     *
      * @param  array $array    Array
      * @param  int   $decimals The number of decimal-numbers to return.
      *
@@ -394,8 +396,6 @@ class Arr
     /**
      * Counts all elements in an array.
      *
-     * $size = Arr::size($array);
-     *
      * @param array $array Array
      * @param int   $mode  [optional] If the optional mode parameter is set to
      *                     COUNT_RECURSIVE (or 1), count
@@ -409,8 +409,6 @@ class Arr
 
     /**
      * Return an array with elements in reverse order.
-     *
-     * $array = Arr::reverse($array);
      *
      * @param array $array         Array
      * @param bool  $preserve_keys Default is false FALSE - numeric keys are preserved.

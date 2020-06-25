@@ -19,9 +19,5 @@
   },
   "autoload": {
       "psr-4": { "Flextype\\Component\\Arr\\": "" }
-  },
-  "require-dev": {
-      "doctrine/coding-standard": "7.0.2",
-      "victorjonsson/markdowndocs": "^1.3"
   }
 }
