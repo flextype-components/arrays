@@ -21,14 +21,14 @@ use Flextype\Component\Arrays;
 
 ### Methods
 
-| Method | Helper Function | Description |
-|---|---|--|
-| <a href="#array_set">`Arrays::set()`</a> | <a href="#array_set">`array_set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
-| <a href="#array_get">`Arrays::get()`</a> | <a href="#array_get">`array_get()`</a> | Returns value from array using "dot notation". If the key does not exist in the array, the default value will be returned instead. |
-| <a href="#array_delete">`Arrays::delete()`</a> | <a href="#array_delete">`array_delete()`</a> | Deletes an array value using "dot notation". |
-| <a href="#array_has">`Arrays::has()`</a> | <a href="#array_has">`array_has()`</a> | Checks if the given dot-notated key exists in the array. |
-| <a href="#array_dot">`Arrays::dot()`</a> | <a href="#array_dot">`array_dot()`</a> | Flatten a multi-dimensional associative array with dots. |
-| <a href="#array_undot">`Arrays::undot()`</a> | <a href="#array_undot">`array_undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
+| Method | Description |
+|---|---|
+| <a href="#array_set">`Arrays::set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
+| <a href="#array_get">`Arrays::get()`</a> | Returns value from array using "dot notation". If the key does not exist in the array, the default value will be returned instead. |
+| <a href="#array_delete">`Arrays::delete()`</a> | Deletes an array value using "dot notation". |
+| <a href="#array_has">`Arrays::has()`</a> | Checks if the given dot-notated key exists in the array. |
+| <a href="#array_dot">`Arrays::dot()`</a> | Flatten a multi-dimensional associative array with dots. |
+| <a href="#array_undot">`Arrays::undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
 
 <hr>
 
