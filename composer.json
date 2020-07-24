@@ -3,7 +3,7 @@
     "description": "Arrays Component contains methods that can be useful when working with arrays.",
     "license": "MIT",
     "keywords": [
-        "ArrayDots", "array-dots", "array", "dot", "php-array", "php"
+        "Arrays", "array", "dot", "php-array", "php", "flextype-components"
     ],
     "support": {
       "source": "https://github.com/flextype-components/arrays",
