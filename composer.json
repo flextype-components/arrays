@@ -28,7 +28,7 @@
     },
     "autoload":{
         "psr-4": {
-            "Flextype\\Component\\Arrays": "src/"
+            "Flextype\\Component\\Arrays\\": "src/"
         }
     },
     "require-dev": {
