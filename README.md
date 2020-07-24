@@ -32,7 +32,7 @@ use Flextype\Component\Arrays;
 
 <hr>
 
-#### <a name="array_set"></a> Method: `Arrays::set()` Helper function: `array_set()`
+#### <a name="array_set"></a> Method: `Arrays::set()`
 
 Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced.
 
@@ -40,7 +40,7 @@ Set an array item to a given value using "dot" notation. If no key is given to t
 Arrays::set($array, 'movies.the-thin-red-line.title', 'The Thin Red Line');
 ```
 
-#### <a name="array_get"></a> Method: `Arrays::get()` Helper function: `array_get()`
+#### <a name="array_get"></a> Method: `Arrays::get()`
 
 Returns value from array using "dot notation".
 If the key does not exist in the array, the default value will be returned instead.
@@ -49,7 +49,7 @@ If the key does not exist in the array, the default value will be returned inste
 Arrays::get($array, 'movies.the-thin-red-line.title')
 ```
 
-#### <a name="array_delete"></a> Method: `Arrays::delete()` Helper function: `array_delete()`
+#### <a name="array_delete"></a> Method: `Arrays::delete()`
 
 Deletes an array value using "dot notation".
 
@@ -57,7 +57,7 @@ Deletes an array value using "dot notation".
 Arrays::delete($array, 'movies.the-thin-red-line');
 ```
 
-#### <a name="array_has"></a> Method: `Arrays::has()` Helper function: `array_has()`
+#### <a name="array_has"></a> Method: `Arrays::has()`
 
 Checks if the given dot-notated key exists in the array.
 
@@ -68,7 +68,7 @@ if (Arrays::has($array, 'movies.the-thin-red-line')) {
 ```
 
 
-#### <a name="array_dot"></a> Method: `Arrays::dot()` Helper function: `array_dot()`
+#### <a name="array_dot"></a> Method: `Arrays::dot()`
 
 Flatten a multi-dimensional associative array with dots.
 
@@ -88,7 +88,7 @@ $newArray = Arrays::dot($array);
 ```
 
 
-#### <a name="array_undot"></a> Method: `Arrays::undot()` Helper function: `array_undot()`
+#### <a name="array_undot"></a> Method: `Arrays::undot()`
 
 Expands a dot notation array into a full multi-dimensional array.
 
