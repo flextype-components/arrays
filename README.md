@@ -1,43 +1,108 @@
-<h1 align="center">Arr Component</h1>
+<h1 align="center">Arrays Component</h1>
 
 <p align="center">
-<a href="https://github.com/flextype-components/arr/releases"><img alt="Version" src="https://img.shields.io/github/release/flextype-components/arr.svg?label=version&color=black"></a> <a href="https://github.com/flextype/flextype"><img src="https://img.shields.io/badge/license-MIT-blue.svg?color=black" alt="License"></a> <a href="https://github.com/flextype-components/arr"><img src="https://img.shields.io/github/downloads/flextype-components/arr/total.svg?color=black" alt="Total downloads"></a>
+<a href="https://github.com/flextype-components/arrays/releases"><img alt="Version" src="https://img.shields.io/github/release/flextype-components/arrays.svg?label=version&color=green"></a> <a href="https://github.com/flextype-components/arrays"><img src="https://img.shields.io/badge/license-MIT-blue.svg?color=green" alt="License"></a> <a href="https://github.com/flextype-components/arrays"><img src="https://img.shields.io/github/downloads/flextype-components/arrays/total.svg?color=green" alt="Total downloads"></a> <a href="https://scrutinizer-ci.com/g/flextype-components/arrays?branch=master"><img src="https://img.shields.io/scrutinizer/g/flextype-components/arrays.svg?branch=master&color=green" alt="Quality Score"></a>
 </p>
-
-The Array Component contains methods that can be useful when working with arrays.
+<br>
 
 ### Installation
 
+With [Composer](https://getcomposer.org):
+
 ```
-composer require flextype-components/arr
+composer require flextype-components/arrays
 ```
 
-### Documentation
+### Usage
 
-#### Class: \Flextype\Component\Arr\Arr
+```php
+use Flextype\Component\Arrays;
+```
+
+### Methods
+
+| Method | Description |
+|---|---|
+| <a href="#array_set">`Arrays::set()`</a> | Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced. |
+| <a href="#array_get">`Arrays::get()`</a> | Returns value from array using "dot notation". If the key does not exist in the array, the default value will be returned instead. |
+| <a href="#array_delete">`Arrays::delete()`</a> | Deletes an array value using "dot notation". |
+| <a href="#array_has">`Arrays::has()`</a> | Checks if the given dot-notated key exists in the array. |
+| <a href="#array_dot">`Arrays::dot()`</a> | Flatten a multi-dimensional associative array with dots. |
+| <a href="#array_undot">`Arrays::undot()`</a> | Expands a dot notation array into a full multi-dimensional array. |
+
+<hr>
+
+#### <a name="array_set"></a> Method: `Arrays::set()`
+
+Set an array item to a given value using "dot" notation. If no key is given to the method, the entire array will be replaced.
+
+```php
+Arrays::set($array, 'movies.the-thin-red-line.title', 'The Thin Red Line');
+```
+
+#### <a name="array_get"></a> Method: `Arrays::get()`
+
+Returns value from array using "dot notation".
+If the key does not exist in the array, the default value will be returned instead.
+
+```php
+Arrays::get($array, 'movies.the-thin-red-line.title')
+```
+
+#### <a name="array_delete"></a> Method: `Arrays::delete()`
+
+Deletes an array value using "dot notation".
+
+```php
+Arrays::delete($array, 'movies.the-thin-red-line');
+```
+
+#### <a name="array_has"></a> Method: `Arrays::has()`
+
+Checks if the given dot-notated key exists in the array.
+
+```php
+if (Arrays::has($array, 'movies.the-thin-red-line')) {
+    // Do something...
+}
+```
 
 
-| Visibility | Function |
-|:-----------|:---------|
-| public static | <strong>average(</strong><em>array</em> <strong>$array</strong>, <em>int/\integer</em> <strong>$decimals</strong>)</strong> : <em>int/\Flextype\Component\Arr\double</em><br /><em>Returns the average value of the current array.</em> |
-| public static | <strong>createFromJson(</strong><em>\string</em> <strong>$json</strong>, <em>\boolean</em> <strong>$assoc=true</strong>, <em>\integer</em> <strong>$depth=512</strong>, <em>int/\integer</em> <strong>$options</strong>)</strong> : <em>array</em><br /><em>Create an new Array from JSON string.</em> |
-| public static | <strong>createFromString(</strong><em>\string</em> <strong>$str</strong>, <em>\string</em> <strong>$delimiter=null</strong>, <em>\string</em> <strong>$regEx=null</strong>)</strong> : <em>array</em><br /><em>Create an new Array object via string.</em> |
-| public static | <strong>delete(</strong><em>array</em> <strong>$array</strong>, <em>\string</em> <strong>$path</strong>)</strong> : <em>mixed</em><br /><em>Deletes an array value using "dot notation".</em> |
-| public static | <strong>dot(</strong><em>array</em> <strong>$array</strong>, <em>\string</em> <strong>$prepend=`''`</strong>)</strong> : <em>array</em><br /><em>Flatten a multi-dimensional associative array with dots.</em> |
-| public static | <strong>first(</strong><em>array</em> <strong>$array</strong>)</strong> : <em>mixed The first element</em><br /><em>Returns the first element of an array</em> |
-| public static | <strong>get(</strong><em>array</em> <strong>$array</strong>, <em>\string</em> <strong>$path</strong>, <em>mixed</em> <strong>$default=null</strong>)</strong> : <em>mixed</em><br /><em>Returns value from array using "dot notation". If the key does not exist in the array, the default value will be returned instead.</em> |
-| public static | <strong>isAssoc(</strong><em>array</em> <strong>$array</strong>)</strong> : <em>bool</em><br /><em>Returns TRUE if the array is associative and FALSE if not.</em> |
-| public static | <strong>keyExists(</strong><em>array</em> <strong>$array</strong>, <em>mixed</em> <strong>$path</strong>)</strong> : <em>bool</em><br /><em>Checks if the given dot-notated key exists in the array.</em> |
-| public static | <strong>last(</strong><em>array</em> <strong>$array</strong>)</strong> : <em>mixed The last element</em><br /><em>Returns the last element of an array</em> |
-| public static | <strong>overwrite(</strong><em>array</em> <strong>$array1</strong>, <em>array</em> <strong>$array2</strong>)</strong> : <em>array</em><br /><em>Overwrites an array with values from input arrays. Keys that do not exist in the first array will not be added!</em> |
-| public static | <strong>random(</strong><em>array</em> <strong>$array</strong>)</strong> : <em>mixed</em><br /><em>Returns a random value from an array.</em> |
-| public | <strong>reverse(</strong><em>array</em> <strong>$array</strong>, <em>\boolean</em> <strong>$preserve_keys=false</strong>)</strong> : <em>array</em><br /><em>Return an array with elements in reverse order. Non-numeric keys are not affected by this setting and will always be preserved.</em> |
-| public static | <strong>set(</strong><em>array</em> <strong>$array</strong>, <em>\string</em> <strong>$path</strong>, <em>mixed</em> <strong>$value</strong>)</strong> : <em>void</em><br /><em>Sets an array value using "dot notation".</em> |
-| public static | <strong>size(</strong><em>array</em> <strong>$array</strong>, <em>int/\integer</em> <strong>$mode</strong>)</strong> : <em>void</em><br /><em>Counts all elements in an array. COUNT_RECURSIVE (or 1), count will recursively count the array. This is particularly useful for counting all the elements of a multidimensional array. count does not detect infinite recursion.</em> |
-| public static | <strong>sort(</strong><em>array</em> <strong>$array</strong>, <em>\string</em> <strong>$field</strong>, <em>\string</em> <strong>$direction=`'ASC'`</strong>, <em>\Flextype\Component\Arr\const</em> <strong>$method</strong>)</strong> : <em>array</em><br /><em>Sorts a multi-dimensional array by a certain field path</em> |
-| public static | <strong>toJson(</strong><em>array</em> <strong>$array</strong>, <em>int/\integer</em> <strong>$options</strong>, <em>\integer</em> <strong>$depth=512</strong>)</strong> : <em>string The JSON string</em><br /><em>Converts an array to a JSON string</em> |
-| public static | <strong>undot(</strong><em>array</em> <strong>$array</strong>)</strong> : <em>array</em><br /><em>Expands a dot notation array into a full multi-dimensional array.</em> |
+#### <a name="array_dot"></a> Method: `Arrays::dot()`
 
-## LICENSE
-[The MIT License (MIT)](https://github.com/flextype-components/arr/blob/master/LICENSE.txt)
+Flatten a multi-dimensional associative array with dots.
+
+```php
+$array = [
+            'movies' => [
+                'the_thin_red_line' => [
+                    'title' => 'The Thin Red Line',
+                    'directed_by' => 'Terrence Malick',
+                    'produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+                    'decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+                ],
+            ],
+         ];
+
+$newArray = Arrays::dot($array);
+```
+
+
+#### <a name="array_undot"></a> Method: `Arrays::undot()`
+
+Expands a dot notation array into a full multi-dimensional array.
+
+```php
+$array = [
+            'movies.the_thin_red_line.title' => 'The Thin Red Line',
+            'movies.the_thin_red_line.directed_by' => 'Terrence Malick',
+            'movies.the_thin_red_line.produced_by' => 'Robert Michael, Geisler Grant Hill, John Roberdeau',
+            'movies.the_thin_red_line.decription' => 'Adaptation of James Jones autobiographical 1962 novel, focusing on the conflict at Guadalcanal during the second World War.',
+         ];
+
+$newArray = Arrays::undot($array);
+```
+
+### License
+[The MIT License (MIT)](https://github.com/flextype-components/arrays/blob/master/LICENSE.txt)
 Copyright (c) 2020 [Sergey Romanenko](https://github.com/Awilum)
